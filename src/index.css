@@ -1,0 +1,12 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 1rem;
+  color: #353C4E;
+  background: #F0F2F4;
+}
+
+#root {
+  height: 100%;
+}
