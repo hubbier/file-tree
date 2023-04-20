@@ -111,4 +111,4 @@ export const WidgetList = ({ widgets }) => {
   </body>
 </html>` 
   },
-] as File[]
+].sort((a, b) => a.path.localeCompare(b.path)) as File[]
