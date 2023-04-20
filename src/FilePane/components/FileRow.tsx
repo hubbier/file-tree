@@ -8,7 +8,7 @@ interface IFileRowProps {
   file: File;
 }
 
-export const FileRow = ({ file }) => {
+export const FileRow = ({ file }: IFileRowProps) => {
   const { activeFile, activateFile } = useWorkspaceContext();
 
   const filePath = file.path.split("/");
@@ -22,7 +22,6 @@ export const FileRow = ({ file }) => {
       alignItems="center"
       key={file.path}
       paddingLeft={`${filePath.length * 0.5}rem`}
-      //   px={1}
       sx={{
         cursor: "pointer",
         background: activeFile === file ? "#DADADA" : "inherit",

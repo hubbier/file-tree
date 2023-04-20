@@ -18,14 +18,25 @@ export const FileTree = ({ node }: IFileRowProps) => {
   if (isFile(node)) {
     return <FileRow key={node.path} file={node} />;
   }
-  const contents = Array.from(node.contents.values()).map((childNode) => (
-    <FileTree node={childNode} />
-  ));
-  if (node.name === "") return <>{contents}</>;
+  const childNodes = Array.from(node.contents.values());
+  const directories = childNodes
+    .filter((node) => !isFile(node))
+    .map((childNode) => <FileTree node={childNode} />);
+  const files = childNodes
+    .filter((node) => isFile(node))
+    .map((childNode) => <FileTree node={childNode} />);
+  if (node.name === "")
+    return (
+      <>
+        {directories}
+        {files}
+      </>
+    );
   else
     return (
       <DirectoryRow directory={node} key={node.name}>
-        {contents}
+        {directories}
+        {files}
       </DirectoryRow>
     );
 };
