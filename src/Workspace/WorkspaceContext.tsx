@@ -25,6 +25,7 @@ export const workspaceContext = createContext<{
   activeFile?: File;
   activateFile: React.Dispatch<React.SetStateAction<string>>;
   files: File[];
+  addFile: (path: string, contents?: string) => void;
   rootDirectory: Directory;
   openDirectories: Array<string>;
   toggleDirectory: (path: string) => void;
@@ -32,6 +33,7 @@ export const workspaceContext = createContext<{
   activeFile: undefined,
   activateFile: () => {},
   files: [],
+  addFile: () => {},
   rootDirectory: newDirectory("", ""),
   openDirectories: [],
   toggleDirectory: () => {},
@@ -52,16 +54,25 @@ export const WorkspaceProvider: React.FC<{
     }
   }
 
+  const [files_, setFiles] = useState(files);
+
+  function addFile(path: string, contents: string = "") {
+    setFiles([...files_, { path, contents }]);
+  }
+
   const activeFile = useMemo(() => {
-    const foundFile = files.find((f) => f.path === activeFilePath);
-    return foundFile || files[0];
+    const foundFile = files_.find((f) => f.path === activeFilePath);
+    return foundFile || files_[0];
   }, [activeFilePath]);
 
   const ctxVal = {
     activeFile,
     activateFile: setActiveFilePath,
-    files,
-    rootDirectory: makeFileTree(files),
+    files: files_.sort((a, b) => a.path.localeCompare(b.path)),
+    addFile,
+    rootDirectory: makeFileTree(
+      files_.sort((a, b) => a.path.localeCompare(b.path))
+    ),
     openDirectories,
     toggleDirectory,
   };
