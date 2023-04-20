@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Icon } from "@mui/material";
 import { FileIcon } from "./FileIcon";
 import { useWorkspaceContext } from "../../Workspace/WorkspaceContext";
+import type { File } from "../../Workspace/WorkspaceContext";
 
 interface IFileRowProps {
   file: File;
@@ -17,9 +18,10 @@ export const FileRow = ({ file }) => {
       flexDirection="row"
       alignItems="center"
       key={file.path}
-      px={1}
+      paddingLeft={`${file.path.split("/").length * 0.5}rem`}
+      //   px={1}
       sx={{
-        cursor: "default",
+        cursor: "pointer",
         background: activeFile === file ? "#DADADA" : "inherit",
         "&:hover": {
           background: "#E6E6E6",

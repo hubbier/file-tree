@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { FileRow } from "./components/FileRow";
 import { useWorkspaceContext } from "../Workspace/WorkspaceContext";
+import { FileTree } from "./components/FileTree";
 
 export const FilePane = () => {
-  const { files } = useWorkspaceContext();
+  const { rootDirectory } = useWorkspaceContext();
 
   return (
     <Box>
@@ -12,9 +12,7 @@ export const FilePane = () => {
         <Typography variant="h6">Files</Typography>
       </Box>
       <Box>
-        {files.map((file) => (
-          <FileRow key={file.path} file={file} />
-        ))}
+        <FileTree node={rootDirectory} />
       </Box>
     </Box>
   );
