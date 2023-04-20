@@ -11,6 +11,9 @@ interface IFileRowProps {
 export const FileRow = ({ file }) => {
   const { activeFile, activateFile } = useWorkspaceContext();
 
+  const filePath = file.path.split("/");
+  const fileName = filePath[filePath.length - 1];
+
   return (
     <Box
       display="flex"
@@ -18,7 +21,7 @@ export const FileRow = ({ file }) => {
       flexDirection="row"
       alignItems="center"
       key={file.path}
-      paddingLeft={`${file.path.split("/").length * 0.5}rem`}
+      paddingLeft={`${filePath.length * 0.5}rem`}
       //   px={1}
       sx={{
         cursor: "pointer",
@@ -27,12 +30,12 @@ export const FileRow = ({ file }) => {
           background: "#E6E6E6",
         },
       }}
-      onClick={() => activateFile(file.path)}
+      onClick={() => activateFile(fileName)}
     >
       <Box width="1.5rem">
-        <FileIcon fileName={file.path} />
+        <FileIcon fileName={fileName} />
       </Box>
-      <Typography variant="body2">{file.path}</Typography>
+      <Typography variant="body2">{fileName}</Typography>
     </Box>
   );
 };
